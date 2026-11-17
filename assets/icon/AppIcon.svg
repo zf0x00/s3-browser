@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <defs>
+    <!-- Background: vivid blue, lighter at the top -->
+    <linearGradient id="bg" x1="0" y1="100" x2="0" y2="924" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#52C6FF"/>
+      <stop offset="0.55" stop-color="#1E95FF"/>
+      <stop offset="1" stop-color="#0866E0"/>
+    </linearGradient>
+    <radialGradient id="sheen" cx="330" cy="150" r="620" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.32"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="tileShadow" x="-10%" y="-10%" width="120%" height="125%">
+      <feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#00194D" flood-opacity="0.32"/>
+    </filter>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="16"/>
+    </filter>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="7"/>
+    </filter>
+    <!-- Bucket body: cylinder shading, slightly translucent -->
+    <linearGradient id="body" x1="284" y1="0" x2="740" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#E6F3FF"/>
+      <stop offset="0.22" stop-color="#FFFFFF"/>
+      <stop offset="0.62" stop-color="#D2E8FF"/>
+      <stop offset="1" stop-color="#9DCBFF"/>
+    </linearGradient>
+    <!-- The opening: dark at the back wall, lit at the front lip -->
+    <linearGradient id="hole" x1="0" y1="330" x2="0" y2="470" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0A4DB0"/>
+      <stop offset="1" stop-color="#2C8FF2"/>
+    </linearGradient>
+    <linearGradient id="handle" x1="0" y1="180" x2="0" y2="430" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#CDE6FF"/>
+    </linearGradient>
+    <clipPath id="bodyClip">
+      <path d="M284 400 L340 742 A172 52 0 0 0 684 742 L740 400 A228 70 0 0 1 284 400 Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- Tile -->
+  <rect x="100" y="100" width="824" height="824" rx="186" fill="url(#bg)" filter="url(#tileShadow)"/>
+  <rect x="100" y="100" width="824" height="824" rx="186" fill="url(#sheen)"/>
+  <rect x="101.5" y="101.5" width="821" height="821" rx="185" fill="none" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="3"/>
+
+  <!-- Ground shadow -->
+  <ellipse cx="512" cy="792" rx="196" ry="36" fill="#03358F" opacity="0.45" filter="url(#soft)"/>
+
+  <!-- Handle (behind the rim) -->
+  <path d="M296 418 C292 176 732 176 728 418" fill="none" stroke="#0B4FB8" stroke-opacity="0.35" stroke-width="30" stroke-linecap="round" transform="translate(0 8)" filter="url(#glow)"/>
+  <path d="M296 418 C292 176 732 176 728 418" fill="none" stroke="url(#handle)" stroke-width="24" stroke-linecap="round" opacity="0.96"/>
+
+  <!-- Body -->
+  <path d="M284 400 L340 742 A172 52 0 0 0 684 742 L740 400 A228 70 0 0 1 284 400 Z" fill="url(#body)" opacity="0.97"/>
+  <g clip-path="url(#bodyClip)">
+    <!-- Two bands that follow the curve -->
+    <path d="M305.3 530 A206.7 63.2 0 0 0 718.7 530" fill="none" stroke="#7DB9FF" stroke-opacity="0.55" stroke-width="28"/>
+    <path d="M323.3 640 A188.7 57.4 0 0 0 700.7 640" fill="none" stroke="#7DB9FF" stroke-opacity="0.55" stroke-width="28"/>
+    <!-- Glossy highlight down the left side -->
+    <path d="M336 470 L372 470 L392 735 L360 735 Z" fill="#FFFFFF" opacity="0.7" filter="url(#glow)"/>
+    <!-- Shade on the right edge -->
+    <path d="M700 380 L760 380 L700 800 L650 800 Z" fill="#3E8EF0" opacity="0.25" filter="url(#soft)"/>
+  </g>
+
+  <!-- Opening and rim -->
+  <ellipse cx="512" cy="400" rx="228" ry="70" fill="url(#hole)"/>
+  <ellipse cx="512" cy="414" rx="190" ry="48" fill="#0A3F94" opacity="0.35" filter="url(#glow)"/>
+  <ellipse cx="512" cy="400" rx="228" ry="70" fill="none" stroke="#FFFFFF" stroke-width="16"/>
+  <path d="M296 404 A216 62 0 0 0 728 404" fill="none" stroke="#FFFFFF" stroke-opacity="0.65" stroke-width="5"/>
+
+  <!-- Handle rivets -->
+  <circle cx="292" cy="424" r="17" fill="#FFFFFF"/>
+  <circle cx="732" cy="424" r="17" fill="#E3F1FF"/>
+</svg>
