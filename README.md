@@ -98,6 +98,14 @@ scripts/bundle.sh
 open "target/S3 Browser.app"
 ```
 
+Package a release build as a drag-to-Applications disk image in `dist/S3 Browser <version>.dmg`:
+
+```bash
+scripts/make_dmg.sh
+```
+
+The app is signed with your Apple Development certificate, which is enough for your own Macs. To hand the DMG to other people, sign with a Developer ID certificate (`S3B_SIGN_IDENTITY`) and notarize it, or Gatekeeper will block it. The build is Apple Silicon only (arm64).
+
 The app icon is `assets/icon/AppIcon.svg`. After editing it, regenerate the `.icns` (rendered with resvg, packed with `iconutil`):
 
 ```bash
