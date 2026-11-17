@@ -2,14 +2,25 @@
 # Build "S3 Browser.app" from the cargo binary.
 #   scripts/bundle.sh            # release build
 #   scripts/bundle.sh debug      # debug build (faster to compile)
+#
+# S3B_PUBLIC=1: a build for publishing — separate target dir, your home folder
+# stripped from embedded paths, signed ad-hoc (no certificate name inside).
 set -euo pipefail
 cd "$(dirname "$0")/.."
 PROFILE="${1:-release}"
+VERSION="$(sed -n 's/^version = "\(.*\)"/\1/p' Cargo.toml | head -1)"
+TARGET_DIR="target"
+if [ "${S3B_PUBLIC:-}" = "1" ]; then
+  TARGET_DIR="target/public"
+  export CARGO_TARGET_DIR="$TARGET_DIR"
+  export RUSTFLAGS="${RUSTFLAGS:-} --remap-path-prefix=$HOME=/build"
+  export S3B_SIGN_IDENTITY="adhoc"
+fi
 if [ "$PROFILE" = "release" ]; then cargo build --release; else cargo build; fi
-APP="target/S3 Browser.app"
+APP="$TARGET_DIR/S3 Browser.app"
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
-cp "target/$PROFILE/s3-browser" "$APP/Contents/MacOS/s3-browser"
+cp "$TARGET_DIR/$PROFILE/s3-browser" "$APP/Contents/MacOS/s3-browser"
 cp assets/icon/AppIcon.icns "$APP/Contents/Resources/AppIcon.icns"
 cat > "$APP/Contents/Info.plist" <<PLIST
 <?xml version="1.0" encoding="UTF-8"?>
@@ -22,7 +33,7 @@ cat > "$APP/Contents/Info.plist" <<PLIST
   <key>CFBundleExecutable</key><string>s3-browser</string>
   <key>CFBundleIconFile</key><string>AppIcon</string>
   <key>CFBundlePackageType</key><string>APPL</string>
-  <key>CFBundleShortVersionString</key><string>0.1.0</string>
+  <key>CFBundleShortVersionString</key><string>$VERSION</string>
   <key>CFBundleVersion</key><string>1</string>
   <key>LSMinimumSystemVersion</key><string>12.0</string>
   <key>NSHighResolutionCapable</key><true/>

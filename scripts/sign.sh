@@ -12,7 +12,10 @@ ID="dev.s3browser.app"
 TARGET="$1"
 
 IDENTITY="${S3B_SIGN_IDENTITY:-}"
-if [ -z "$IDENTITY" ]; then
+# "adhoc" forces anonymous signing (public builds: no certificate name inside).
+if [ "$IDENTITY" = "adhoc" ] || [ "$IDENTITY" = "-" ]; then
+  IDENTITY=""
+elif [ -z "$IDENTITY" ]; then
   IDENTITY="$(security find-identity -v -p codesigning 2>/dev/null \
     | awk -F'"' '/Apple Development:/ { print $2; exit }')"
 fi

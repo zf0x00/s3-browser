@@ -10,6 +10,7 @@ Browse buckets like a local drive, with thumbnails, Quick Look, folder sizes and
 
 Built in Rust with [GPUI Kit](https://github.com/longbridge/gpui-kit).
 
+[![Release](https://img.shields.io/github/v/release/zf0x00/s3-browser?color=2599ff)](https://github.com/zf0x00/s3-browser/releases/latest)
 ![macOS](https://img.shields.io/badge/macOS-12%2B-111?logo=apple)
 ![Apple Silicon](https://img.shields.io/badge/Apple%20Silicon-arm64-111)
 ![Rust](https://img.shields.io/badge/Rust-2024-b7410e?logo=rust)
@@ -32,17 +33,15 @@ Built in Rust with [GPUI Kit](https://github.com/longbridge/gpui-kit).
 
 ## Install
 
-Build the disk image and drag **S3 Browser** to **Applications**:
+**[Download the latest release](https://github.com/zf0x00/s3-browser/releases/latest)**: open the `.dmg` and drag **S3 Browser** into **Applications**. It needs a Mac with Apple Silicon (M1 or later) running macOS 12 or newer.
+
+The app isn't notarized by Apple yet, so the first time you open it, go to **System Settings → Privacy & Security** and click **Open Anyway**. Alternatively, run this once:
 
 ```bash
-scripts/make_dmg.sh
+xattr -dr com.apple.quarantine "/Applications/S3 Browser.app"
 ```
 
-```bash
-open "dist/S3 Browser 0.1.0.dmg"
-```
-
-The build targets **Apple Silicon** and macOS 12 or later. See [Build and run](#build-and-run) for prerequisites and signing.
+To build the disk image yourself, see [Build and run](#build-and-run). `scripts/make_dmg.sh --public` builds the anonymous, ad-hoc-signed image used for releases.
 
 ## Providers
 
