@@ -307,6 +307,31 @@ impl S3App {
             .into_any_element()
     }
 
+    // ---- about ---------------------------------------------------------------
+
+    pub fn show_about(&mut self, window: &mut Window, cx: &mut Context<Self>) {
+        window.open_dialog(cx, |dialog, _, cx| {
+            let p = theme::palette(cx);
+            dialog.w(px(360.)).child(
+                v_flex()
+                    .items_center()
+                    .gap(px(6.))
+                    .pb(px(8.))
+                    .child(img("icon/AppIcon.svg").size(px(112.)))
+                    .child(div().text_size(px(18.)).font_weight(FontWeight::BOLD).child("S3 Browser"))
+                    .child(div().text_size(px(12.)).text_color(p.ink_faint).child(format!("Version {}", env!("CARGO_PKG_VERSION"))))
+                    .child(
+                        div()
+                            .pt(px(8.))
+                            .text_center()
+                            .text_size(px(12.5))
+                            .text_color(p.ink_dull)
+                            .child("A native file manager for Amazon S3 and S3-compatible storage. Built with Rust and GPUI Kit."),
+                    ),
+            )
+        });
+    }
+
     // ---- cache & previews settings -------------------------------------------
 
     pub fn open_settings(&mut self, window: &mut Window, cx: &mut Context<Self>) {

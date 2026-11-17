@@ -29,6 +29,8 @@ use gpui_kit::{
 };
 
 use crate::app::S3App;
+use crate::menus;
+use crate::settings::ViewMode;
 use crate::s3::Entry;
 use crate::theme::{self, Palette};
 use crate::util;
@@ -199,6 +201,37 @@ impl Render for S3App {
             .text_size(px(13.))
             .track_focus(&self.focus)
             .on_key_down(cx.listener(|this, event, window, cx| this.on_key(event, window, cx)))
+            .on_action(cx.listener(|this, _: &menus::About, window, cx| this.show_about(window, cx)))
+            .on_action(cx.listener(|this, _: &menus::OpenSettings, window, cx| this.open_settings(window, cx)))
+            .on_action(cx.listener(|this, _: &menus::NewConnection, window, cx| this.open_connection_dialog(None, None, window, cx)))
+            .on_action(cx.listener(|this, _: &menus::UploadFiles, window, cx| this.upload_dialog(false, window, cx)))
+            .on_action(cx.listener(|this, _: &menus::UploadFolder, window, cx| this.upload_dialog(true, window, cx)))
+            .on_action(cx.listener(|this, _: &menus::NewFolder, window, cx| this.new_folder(window, cx)))
+            .on_action(cx.listener(|_, _: &menus::CloseWindow, window, _| window.remove_window()))
+            .on_action(cx.listener(|this, _: &menus::Refresh, window, cx| this.reload(window, cx)))
+            .on_action(cx.listener(|this, _: &menus::GoBack, window, cx| this.go_back(window, cx)))
+            .on_action(cx.listener(|this, _: &menus::GoForward, window, cx| this.go_forward(window, cx)))
+            .on_action(cx.listener(|this, _: &menus::GoUp, window, cx| this.go_up(window, cx)))
+            .on_action(cx.listener(|this, _: &menus::ViewGrid, _, cx| this.set_view(ViewMode::Grid, cx)))
+            .on_action(cx.listener(|this, _: &menus::ViewList, _, cx| this.set_view(ViewMode::List, cx)))
+            .on_action(cx.listener(|this, _: &menus::ViewMedia, _, cx| this.set_view(ViewMode::Media, cx)))
+            .on_action(cx.listener(|this, _: &menus::ZoomIn, _, cx| this.zoom(1, cx)))
+            .on_action(cx.listener(|this, _: &menus::ZoomOut, _, cx| this.zoom(-1, cx)))
+            .on_action(cx.listener(|this, _: &menus::ToggleSidebar, _, cx| {
+                this.settings.sidebar = !this.settings.sidebar;
+                this.save_settings(cx);
+            }))
+            .on_action(cx.listener(|this, _: &menus::ToggleInspector, _, cx| {
+                this.settings.inspector = !this.settings.inspector;
+                this.save_settings(cx);
+            }))
+            .on_action(cx.listener(|this, _: &menus::ShowTransfers, _, cx| {
+                this.show_transfers = !this.show_transfers;
+                cx.notify();
+            }))
+            .on_action(cx.listener(|this, _: &menus::ToggleTheme, window, cx| this.toggle_theme(window, cx)))
+            .on_action(cx.listener(|_, _: &menus::Minimize, window, _| window.minimize_window()))
+            .on_action(cx.listener(|_, _: &menus::ZoomWindow, window, _| window.zoom_window()))
             .child(
                 h_flex()
                     .size_full()

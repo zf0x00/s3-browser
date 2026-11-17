@@ -166,7 +166,7 @@ impl S3App {
             .gap(px(6.))
             // Traffic lights sit here when the sidebar is hidden.
             .when(!self.settings.sidebar, |d| {
-                d.pl(px(80.)).child(tool_button("show-sidebar", IconName::PanelLeftOpen, "Show sidebar").on_click(cx.listener(
+                d.pl(px(92.)).child(tool_button("show-sidebar", IconName::PanelLeftOpen, "Show sidebar").on_click(cx.listener(
                     |this, _, _, cx| {
                         this.settings.sidebar = true;
                         this.save_settings(cx);

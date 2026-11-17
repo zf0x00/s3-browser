@@ -722,10 +722,7 @@ impl S3App {
             }
             ("a", true) => self.select_all(cx),
             ("backspace" | "delete", true) => self.delete_selected(window, cx),
-            ("up", true) => self.go_up(window, cx),
-            ("[", true) => self.go_back(window, cx),
-            ("]", true) => self.go_forward(window, cx),
-            ("r", true) => self.reload(window, cx),
+            // ⌘↑ ⌘[ ⌘] ⌘R are menu shortcuts (menus.rs).
             ("left", false) if visible_len > 0 => self.select_index(current.map_or(0, |i| i.saturating_sub(1)), window, cx),
             ("right", false) if visible_len > 0 => {
                 self.select_index(current.map_or(0, |i| (i + 1).min(visible_len - 1)), window, cx)

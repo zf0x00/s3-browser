@@ -24,6 +24,7 @@ const ART: &[(&str, &[u8])] = &[
     ("art/file-dark.svg", include_bytes!("../assets/art/file-dark.svg")),
     ("art/file-light.svg", include_bytes!("../assets/art/file-light.svg")),
     ("art/bucket.svg", include_bytes!("../assets/art/bucket.svg")),
+    ("icon/AppIcon.svg", include_bytes!("../assets/icon/AppIcon.svg")),
     ("logos/s3-bucket.svg", include_bytes!("../assets/logos/s3-bucket.svg")),
     ("logos/cloudflare.svg", include_bytes!("../assets/logos/cloudflare.svg")),
     ("logos/minio.svg", include_bytes!("../assets/logos/minio.svg")),

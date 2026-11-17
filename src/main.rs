@@ -6,6 +6,7 @@ mod app;
 mod assets;
 mod cache;
 mod connection_form;
+mod menus;
 mod providers;
 mod s3;
 mod settings;
@@ -17,7 +18,7 @@ mod util;
 
 use gpui_kit::component::TitleBar;
 use gpui_kit::prelude::*;
-use gpui_kit::{Bounds, WindowBounds, WindowOptions, px, size};
+use gpui_kit::{Bounds, TitlebarOptions, WindowBounds, WindowOptions, point, px, size};
 
 /// Panics inside AppKit callbacks abort without a message; keep one on disk.
 fn install_panic_log() {
@@ -51,10 +52,18 @@ fn main() {
         // Our own palette over gpui-component's theme (follows the system
         // unless the user picked light or dark).
         theme::apply(settings::Settings::load().dark, None, cx);
+        menus::init(cx);
 
         let options = WindowOptions {
             window_bounds: Some(WindowBounds::Windowed(Bounds::centered(None, size(px(1360.), px(860.)), cx))),
             window_min_size: Some(size(px(980.), px(600.))),
+            // Traffic lights inset inside the floating sidebar card
+            // (card at 8 px; buttons 14 px in from its corner).
+            titlebar: Some(TitlebarOptions {
+                title: Some("S3 Browser".into()),
+                appears_transparent: true,
+                traffic_light_position: Some(point(px(22.), px(22.))),
+            }),
             ..TitleBar::window_options()
         };
         gpui_kit::open_window(options, cx, |window, cx| cx.new(|cx| app::S3App::new(window, cx)))

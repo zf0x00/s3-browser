@@ -344,7 +344,7 @@ impl S3App {
                     .border_color(p.panel_border)
                     .overflow_hidden()
                     // Room for the traffic lights; also drags the window.
-                    .child(drag_area("sidebar-drag").h(px(34.)).flex_shrink_0())
+                    .child(drag_area("sidebar-drag").h(px(50.)).flex_shrink_0())
                     .child(
                         v_flex()
                             .id("sidebar-scroll")
