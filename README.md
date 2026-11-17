@@ -13,6 +13,7 @@ Built in Rust with [GPUI Kit](https://github.com/longbridge/gpui-kit).
 ![macOS](https://img.shields.io/badge/macOS-12%2B-111?logo=apple)
 ![Apple Silicon](https://img.shields.io/badge/Apple%20Silicon-arm64-111)
 ![Rust](https://img.shields.io/badge/Rust-2024-b7410e?logo=rust)
+[![License: MIT](https://img.shields.io/badge/License-MIT-2599ff)](LICENSE)
 
 </div>
 
@@ -216,3 +217,7 @@ The AWS SDK needs a tokio runtime, while GPUI has its own executor. So every S3 
 - The design takes inspiration from [Spacedrive](https://github.com/spacedriveapp/spacedrive).
 - The connection model comes from [s3fs-fuse](https://github.com/s3fs-fuse/s3fs-fuse).
 - Provider logos are from [Simple Icons](https://simpleicons.org) (CC0); the trademarks belong to their owners. Icons are [Lucide](https://lucide.dev).
+
+## License
+
+[MIT](LICENSE) © 2026 Sridhar. Provider logos keep their own terms (see [assets/logos/README.md](assets/logos/README.md)).

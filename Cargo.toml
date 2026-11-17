@@ -3,6 +3,8 @@ name = "s3-browser"
 version = "0.1.0"
 edition = "2024"
 description = "A native S3 file browser for AWS and S3-compatible providers, built with GPUI Kit."
+license = "MIT"
+repository = "https://github.com/zf0x00/s3-browser"
 
 [[bin]]
 name = "s3-browser"
